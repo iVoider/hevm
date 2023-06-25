@@ -166,7 +166,7 @@ makeVm o =
     , baseFee = o.baseFee
     , schedule = o.schedule
     }
-  cache = Cache mempty mempty mempty
+  cache = Cache mempty mempty mempty 
 
 -- | Initialize empty contract with given code
 initialContract :: ContractCode -> Contract
@@ -1545,7 +1545,7 @@ cheatActions =
       action "prank(address)" $
         \sig _ _ input -> case decodeStaticArgs 0 1 input of
           [addr]  -> assign #overrideCaller (Expr.exprToAddr addr)
-           _ -> vmError (BadCheatCode sig),
+          _ -> vmError (BadCheatCode sig),
 
       action "createFork(string)" $
         \sig outOffset _ input -> case decodeBuf [AbiStringType] input of
@@ -1559,7 +1559,7 @@ cheatActions =
               copyBytesToMemory (ConcreteBuf encoded) (Lit . num . BS.length $ encoded) (Lit 0) outOffset
             _ -> vmError (BadCheatCode sig)
           _ -> vmError (BadCheatCode sig),
-      
+
       action "selectFork(uint256)" $
         \sig _ _ input -> case decodeStaticArgs 0 1 input of
           [forkId] ->
