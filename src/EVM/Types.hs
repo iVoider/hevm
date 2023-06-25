@@ -587,7 +587,7 @@ data VM = VM
   , keccakEqs      :: [Prop]
   , allowFFI       :: Bool
   , overrideCaller :: Maybe Addr
-  , forks          :: Seq ForkState
+  , forks          :: Seq.Seq ForkState
   , currentFork    :: Int
   }
   deriving (Show, Generic)
